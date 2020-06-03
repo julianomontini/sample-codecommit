@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: DownloadSecureFile@1
+  name: serviceAccountKey
   inputs:
     secureFile: 'gcloud_SA'
 - task: GoogleCloudSdkInstaller@0
@@ -19,7 +20,7 @@ steps:
 - task: GcloudRunner@0
   displayName: Activate Service Account
   inputs:
-    command: 'auth activate-service-account --key-file ./gcloud_SA'
+    command: 'auth activate-service-account --key-file $(serviceAccountKey.secureFilePath)'
 - task: GcloudRunner@0
   displayName: Deploy app
   inputs:
