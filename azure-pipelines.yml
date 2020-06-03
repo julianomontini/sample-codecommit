@@ -17,10 +17,11 @@ steps:
   inputs:
     version: '291.0.0'
 - task: GcloudRunner@0
+  displayName: Activate Service Account
   inputs:
     command: 'auth activate-service-account --key-file gcloud_SA'
-    arguments: '--no-promote'
 - task: GcloudRunner@0
+  displayName: Deploy app
   inputs:
     command: 'app deploy'
     arguments: '--no-promote --project jenkins-279201'
