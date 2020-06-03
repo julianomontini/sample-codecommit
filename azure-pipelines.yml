@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: DownloadSecureFile@1
+  name: serviceAccountKey
+  inputs:
+    secureFile: 'gcloud_SA'
+- task: GoogleCloudSdkInstaller@0
+  inputs:
+    version: '291.0.0'
+- task: GcloudRunner@0
+  displayName: Activate Service Account
+  inputs:
+    command: 'auth activate-service-account --key-file $(serviceAccountKey.secureFilePath)'
+- task: GcloudRunner@0
+  displayName: Deploy app
+  inputs:
+    command: 'app deploy'
+    arguments: '--no-promote --project jenkins-279201'
