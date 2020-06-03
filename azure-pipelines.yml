@@ -10,6 +10,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'gcloud_SA'
 - task: GoogleCloudSdkInstaller@0
   inputs:
     version: '291.0.0'
