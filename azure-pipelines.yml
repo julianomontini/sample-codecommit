@@ -19,7 +19,7 @@ steps:
 - task: GcloudRunner@0
   displayName: Activate Service Account
   inputs:
-    command: 'auth activate-service-account --key-file gcloud_SA'
+    command: 'auth activate-service-account --key-file ./gcloud_SA'
 - task: GcloudRunner@0
   displayName: Deploy app
   inputs:
